@@ -9,7 +9,7 @@ import (
 )
 
 func showLoginPage(c *gin.Context) {
-	render(c, gin.H{}, "login.html")
+	render(c, gin.H{"title": "Login"}, "login.html")
 }
 
 func login(c *gin.Context) {
@@ -23,7 +23,7 @@ func login(c *gin.Context) {
 		c.SetCookie("token", token, 3600, "", "", false, true)
 		c.Set("is_logged_in", true)
 
-		render(c, gin.H{}, "login_successful.html")
+		render(c, gin.H{"title": "Successfully login"}, "login_successful.html")
 	} else {
 		render_bad(c, gin.H{
 			"ErrorTitle":   "Login Failed",
@@ -37,4 +37,26 @@ func logout(c *gin.Context) {
 	c.SetCookie("token", "", -1, "", "", false, true)
 	c.Set("is_logged_in", false)
 	c.Redirect(http.StatusTemporaryRedirect, "/")
+}
+
+func showRegisterPage(c *gin.Context) {
+	render(c, gin.H{"title": "Register"}, "register.html")
+}
+
+func register(c *gin.Context) {
+	username := c.PostForm("username")
+	password := c.PostForm("password")
+
+	if err := registerNewUser(username, password); err == nil {
+		token := strconv.FormatInt(rand.Int63(), 16)
+		c.SetCookie("token", token, 3600, "", "", false, true)
+		c.Set("is_logged_in", true)
+
+		render(c, gin.H{"title": "Successfully register & login"}, "login_successful.html")
+	} else {
+		render_bad(c, gin.H{
+			"ErrorTitle":   "Register Failed",
+			"ErrorMessage": err.Error(),
+		}, "register.html")
+	}
 }

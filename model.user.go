@@ -1,5 +1,10 @@
 package main
 
+import (
+	"errors"
+	"strings"
+)
+
 type user struct {
 	User_name string `json:"user_name"`
 	Password  string `json:"password"`
@@ -18,4 +23,26 @@ func isUserValid(username string, password string) bool {
 		}
 	}
 	return false
+}
+
+func registerNewUser(username string, password string) error {
+	if strings.TrimSpace(password) == "" {
+		return errors.New("The password can not be empty")
+	}
+	if !isUserNameAvaliable(username) {
+		return errors.New("This name is already registered")
+	}
+
+	u := user{User_name: username, Password: password}
+	userList = append(userList, u)
+	return nil
+}
+
+func isUserNameAvaliable(username string) bool {
+	for _, user := range userList {
+		if username == user.User_name {
+			return false
+		}
+	}
+	return true
 }

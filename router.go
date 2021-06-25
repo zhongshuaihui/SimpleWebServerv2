@@ -22,6 +22,8 @@ func initRoutes() {
 		userRoutes.GET("/login", ensureNotLoggedIn, showLoginPage)
 		userRoutes.POST("/login", ensureNotLoggedIn, login)
 		userRoutes.GET("/logout", ensureLoggedIn, logout)
+		userRoutes.GET("/register", ensureNotLoggedIn, showRegisterPage)
+		userRoutes.POST("/register", ensureNotLoggedIn, register)
 	}
 
 	articleRoutes := router.Group("/article")
