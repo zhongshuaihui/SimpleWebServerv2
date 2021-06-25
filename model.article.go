@@ -1,12 +1,14 @@
 package main
 
+import "errors"
+
 type article struct {
 	Id      int    `json:"id"`
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }
 
-// v2: the airticle store in disk
+// v1: the airticle store in disk
 var articleList = []article{
 	{Id: 1, Title: "Article 1", Content: "The first article"},
 	{Id: 2, Title: "Article 2", Content: "The second article"},
@@ -14,4 +16,15 @@ var articleList = []article{
 
 func getAllArticles() []article {
 	return articleList
+}
+
+func findArticleById(id int) (article_add *article, err error) {
+	for _, a := range articleList {
+		if a.Id == id {
+			article_add = &a
+			err = nil
+			return
+		}
+	}
+	return nil, errors.New("article not found")
 }
