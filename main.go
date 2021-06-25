@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -12,16 +11,17 @@ import (
 )
 
 var router *gin.Engine
-var db *sql.DB
+var Db *sql.DB
 
 func main() {
-	db, err := sql.Open("mysql", "root:12345678@tcp(127.0.0.1:3306)/webserver?parseTime=true")
-	fmt.Println(db, "---------")
+	var err error
+	// v2 read data from database
+	Db, err = sql.Open("mysql", "root:12345678@tcp(127.0.0.1:3306)/webserver?parseTime=true")
 	if err != nil {
-		log.Fatal(err.Error()) //输出错误，Fatal和panic的区别在前者不会执行defer
+		log.Fatal(err.Error())
 	}
-	// defer db.Close()
-	err = db.Ping()
+	defer Db.Close()
+	err = Db.Ping()
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -31,7 +31,6 @@ func main() {
 	// Process the templates at the start so that they don't have to be loaded
 	// from the disk again. This makes serving HTML pages very fast.
 	router.LoadHTMLGlob("templates/*")
-
 	initRoutes()
 
 	router.Run(":8080")

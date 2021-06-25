@@ -1,10 +1,10 @@
 package main
 
-import "fmt"
+import (
+	_ "github.com/go-sql-driver/mysql"
+)
 
 func initRoutes() {
-
-	fmt.Println(db)
 
 	router.Use(setUserState)
 

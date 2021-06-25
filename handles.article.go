@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -9,7 +10,10 @@ import (
 
 // show main page
 func showIndexPage(c *gin.Context) {
-	articles := getAllArticles()
+	articles, err := getAllArticles()
+	if err != nil {
+		log.Fatal(err)
+	}
 	// c.HTML(
 	// 	http.StatusOK,
 	// 	"index.html",
@@ -20,6 +24,7 @@ func showIndexPage(c *gin.Context) {
 	// )
 
 	// use render to handle different request
+	// the payload can carry all the articles
 	render(c, gin.H{"payload": articles}, "index.html")
 }
 

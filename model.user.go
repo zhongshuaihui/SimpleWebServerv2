@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 )
 
@@ -11,12 +10,14 @@ type user struct {
 	Password  string `json:"password"`
 }
 
+// v1: the user store in disk
 // var userList = []user{
 // 	{User_name: "user1", Password: "123"},
 // 	{User_name: "user2", Password: "123"},
 // 	{User_name: "user3", Password: "123"},
 // }
 
+// v2: the user store in database
 var userList []user
 
 func isUserValid(username string, password string) bool {
@@ -42,13 +43,12 @@ func registerNewUser(username string, password string) (err error) {
 	// u := user{User_name: username, Password: password}
 	// userList = append(userList, u)
 
-	stmt, err := db.Prepare("insert into user values (?, ?)")
+	stmt, err := Db.Prepare("insert into user values (?, ?)")
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
 
-	// Exec执行一个query但不返回任何rows，它的返回值Result为一个特殊的interface
 	_, err = stmt.Exec(username, password)
 	if err != nil {
 		return
@@ -69,8 +69,7 @@ func isUserNameAvaliable(username string) bool {
 }
 
 func readUserList() (err error) {
-	fmt.Println(db)
-	rows, err := db.Query("select * from user")
+	rows, err := Db.Query("select * from user")
 	if err != nil {
 		return
 	}
