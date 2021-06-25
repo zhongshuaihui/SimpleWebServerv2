@@ -1,6 +1,10 @@
 package main
 
+import "fmt"
+
 func initRoutes() {
+
+	fmt.Println(db)
 
 	router.Use(setUserState)
 

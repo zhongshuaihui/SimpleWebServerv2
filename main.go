@@ -1,14 +1,31 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
+	"log"
 	"net/http"
+
+	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/gin-gonic/gin"
 )
 
 var router *gin.Engine
+var db *sql.DB
 
 func main() {
+	db, err := sql.Open("mysql", "root:12345678@tcp(127.0.0.1:3306)/webserver?parseTime=true")
+	fmt.Println(db, "---------")
+	if err != nil {
+		log.Fatal(err.Error()) //输出错误，Fatal和panic的区别在前者不会执行defer
+	}
+	// defer db.Close()
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
 	router = gin.Default()
 
 	// Process the templates at the start so that they don't have to be loaded
