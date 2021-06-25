@@ -26,6 +26,7 @@ func login(c *gin.Context) {
 		render(c, gin.H{"title": "Successfully login"}, "login_successful.html")
 	} else {
 		render_bad(c, gin.H{
+			"title":        "Login",
 			"ErrorTitle":   "Login Failed",
 			"ErrorMessage": "No such user or password error",
 		}, "login.html")
@@ -55,6 +56,7 @@ func register(c *gin.Context) {
 		render(c, gin.H{"title": "Successfully register & login"}, "login_successful.html")
 	} else {
 		render_bad(c, gin.H{
+			"title":        "Register",
 			"ErrorTitle":   "Register Failed",
 			"ErrorMessage": err.Error(),
 		}, "register.html")

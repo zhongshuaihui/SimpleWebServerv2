@@ -27,10 +27,10 @@ func isUserValid(username string, password string) bool {
 
 func registerNewUser(username string, password string) error {
 	if strings.TrimSpace(password) == "" {
-		return errors.New("The password can not be empty")
+		return errors.New("the password can not be empty")
 	}
 	if !isUserNameAvaliable(username) {
-		return errors.New("This name is already registered")
+		return errors.New("this name is already registered")
 	}
 
 	u := user{User_name: username, Password: password}

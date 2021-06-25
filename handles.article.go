@@ -51,9 +51,16 @@ func showArticleDetail(c *gin.Context) {
 }
 
 func showCreateArticlePage(c *gin.Context) {
-
+	render(c, gin.H{"title": "Create new article"}, "create_article.html")
 }
 
-func appendArticle(c *gin.Context) {
+func publishArticle(c *gin.Context) {
+	title := c.PostForm("title")
+	content := c.PostForm("content")
 
+	if err := appendArticle(title, content); err == nil {
+		render(c, gin.H{"title": "Successfully submit article"}, "submission_successful.html")
+	} else {
+		c.AbortWithStatus(http.StatusBadRequest)
+	}
 }

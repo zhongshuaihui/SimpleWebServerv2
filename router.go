@@ -29,7 +29,7 @@ func initRoutes() {
 	articleRoutes := router.Group("/article")
 	{
 		articleRoutes.GET("/view/:article_id", showArticleDetail)
-		articleRoutes.GET("/create", showCreateArticlePage)
-		articleRoutes.POST("/create", appendArticle)
+		articleRoutes.GET("/create", ensureLoggedIn, showCreateArticlePage)
+		articleRoutes.POST("/create", ensureLoggedIn, publishArticle)
 	}
 }

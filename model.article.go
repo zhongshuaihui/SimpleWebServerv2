@@ -28,3 +28,10 @@ func findArticleById(id int) (article_add *article, err error) {
 	}
 	return nil, errors.New("article not found")
 }
+
+func appendArticle(title string, content string) error {
+	a := article{Title: title, Content: content}
+
+	articleList = append(articleList, a)
+	return nil
+}
