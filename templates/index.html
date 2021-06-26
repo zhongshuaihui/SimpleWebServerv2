@@ -3,6 +3,26 @@
 <!--Embed the header.html template at this location-->
 {{ template "header.html" .}}
 
+  <a href="/u/login">
+    <!--Display the title of the article -->
+    <h2>login</h2>
+  </a>
+
+  <a href="/u/logout">
+    <!--Display the title of the article -->
+    <h2>logout</h2>
+  </a>
+
+  <a href="/u/register">
+    <!--Display the title of the article -->
+    <h2>register</h2>
+  </a>
+
+  <a href="/article/create">
+    <!--Display the title of the article -->
+    <h2>create article</h2>
+  </a>
+  
   <!--Loop over the `payload` variable, which is the list of articles-->
   {{range .payload }}
     <!--Create the link for the article based on its ID-->
