@@ -34,6 +34,7 @@ When you are in logout state, a `401` error will occur.
 ### register
 
 When you enter valid username and password, a `200` state code will be returned, and the register & login succesful page will be shown. This new account will be added in database.
+
 ![register](./pic/register.png)
 ![register_data](./pic/register_data.png)
 
