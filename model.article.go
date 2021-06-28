@@ -1,6 +1,9 @@
 package main
 
-import "errors"
+import (
+	"errors"
+	"log"
+)
 
 type article struct {
 	Id      int    `json:"id"`
@@ -47,19 +50,26 @@ func findArticleById(id int) (article_add *article, err error) {
 }
 
 func appendArticle(title string, content string) error {
-	// a := article{Title: title, Content: content}
-
-	// articleList = append(articleList, a)
 	stmt, err := Db.Prepare("insert into article (title, content) values (?, ?)")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(title, content)
+	rs, err := stmt.Exec(title, content)
 	if err != nil {
 		return err
 	}
+
+	id, err := rs.LastInsertId()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	Id := int(id)
+
+	a := article{Id: Id, Title: title, Content: content}
+	articleList = append(articleList, a)
 
 	return nil
 }
