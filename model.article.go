@@ -41,9 +41,7 @@ func getAllArticles() ([]article, error) {
 func findArticleById(id int) (article_add *article, err error) {
 	for _, a := range articleList {
 		if a.Id == id {
-			article_add = &a
-			err = nil
-			return
+			return &a, nil
 		}
 	}
 	return nil, errors.New("article not found")
