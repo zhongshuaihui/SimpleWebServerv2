@@ -1,12 +1,15 @@
 package main
 
 import (
+	"simplewebserverv2/handles"
+	"simplewebserverv2/middleware"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func initRoutes() {
 
-	router.Use(setUserState)
+	router.Use(middleware.SetUserState)
 
 	// router.GET("/", func(c *gin.Context) {
 	// 	c.HTML(
@@ -16,24 +19,24 @@ func initRoutes() {
 	// 	)
 	// })
 
-	router.GET("/", showIndexPage)
+	router.GET("/", handles.ShowIndexPage)
 
 	// router.GET("/article/view/:article_id", showArticleDetail)
 
 	// Group article related routes together
 	userRoutes := router.Group("/u")
 	{
-		userRoutes.GET("/login", ensureNotLoggedIn, showLoginPage)
-		userRoutes.POST("/login", ensureNotLoggedIn, login)
-		userRoutes.GET("/logout", ensureLoggedIn, logout)
-		userRoutes.GET("/register", ensureNotLoggedIn, showRegisterPage)
-		userRoutes.POST("/register", ensureNotLoggedIn, register)
+		userRoutes.GET("/login", middleware.EnsureNotLoggedIn, handles.ShowLoginPage)
+		userRoutes.POST("/login", middleware.EnsureNotLoggedIn, handles.Login)
+		userRoutes.GET("/logout", middleware.EnsureLoggedIn, handles.Logout)
+		userRoutes.GET("/register", middleware.EnsureNotLoggedIn, handles.ShowRegisterPage)
+		userRoutes.POST("/register", middleware.EnsureNotLoggedIn, handles.Register)
 	}
 
 	articleRoutes := router.Group("/article")
 	{
-		articleRoutes.GET("/view/:article_id", showArticleDetail)
-		articleRoutes.GET("/create", ensureLoggedIn, showCreateArticlePage)
-		articleRoutes.POST("/create", ensureLoggedIn, publishArticle)
+		articleRoutes.GET("/view/:article_id", handles.ShowArticleDetail)
+		articleRoutes.GET("/create", middleware.EnsureLoggedIn, handles.ShowCreateArticlePage)
+		articleRoutes.POST("/create", middleware.EnsureLoggedIn, handles.PublishArticle)
 	}
 }
