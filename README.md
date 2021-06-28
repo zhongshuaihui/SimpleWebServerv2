@@ -54,4 +54,5 @@ When you are in logout state, a `401` error will occur.
 ### show detailed article
 
 In the index page, all articles stored in database is shown, you are able to see the detailed article by pressing their title.
+
 ![article_detail](./pic/article_detail.png)
