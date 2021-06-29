@@ -29,7 +29,7 @@ func getRouter(withTemplates bool) *gin.Engine {
 	r := gin.Default()
 	if withTemplates {
 		r.LoadHTMLGlob("../templates/*")
-		r.Use(middleware.SetUserState)
+		r.Use(middleware.SetUserState())
 	}
 	return r
 }

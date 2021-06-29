@@ -14,7 +14,7 @@ import (
 
 func TestShowLoginPageUnauthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.GET("/u/login", middleware.EnsureNotLoggedIn, handles.ShowLoginPage)
+	r.GET("/u/login", middleware.EnsureNotLoggedIn(), handles.ShowLoginPage)
 	req, _ := http.NewRequest("GET", "/u/login", nil)
 	testHTTPResponseUnauthenticated(t, r, req, func(w *httptest.ResponseRecorder) bool {
 		// Test whether the http state code is 200
@@ -30,7 +30,7 @@ func TestShowLoginPageUnauthenticated(t *testing.T) {
 
 func TestShowLoginPageAuthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.GET("/u/login", middleware.EnsureNotLoggedIn, handles.ShowLoginPage)
+	r.GET("/u/login", middleware.EnsureNotLoggedIn(), handles.ShowLoginPage)
 	req, _ := http.NewRequest("GET", "/u/login", nil)
 	testHTTPResponseAuthenticated(t, r, req, func(w *httptest.ResponseRecorder) bool {
 		// Test whether the http state code is 401
@@ -40,7 +40,7 @@ func TestShowLoginPageAuthenticated(t *testing.T) {
 
 func TestLoginUnauthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.POST("/u/login", middleware.EnsureNotLoggedIn, handles.Login)
+	r.POST("/u/login", middleware.EnsureNotLoggedIn(), handles.Login)
 
 	// create a request to send the above route
 	loginPayload := getLoginPostPayLoad()
@@ -61,7 +61,7 @@ func TestLoginUnauthenticated(t *testing.T) {
 
 func TestLoginAuthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.POST("/u/login", middleware.EnsureNotLoggedIn, handles.Login)
+	r.POST("/u/login", middleware.EnsureNotLoggedIn(), handles.Login)
 
 	// create a request to send the above route
 	loginPayload := getLoginPostPayLoad()
@@ -77,7 +77,7 @@ func TestLoginAuthenticated(t *testing.T) {
 // test the login function with incorrect username & password
 func TestLoginIncorrectUnauthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.POST("/u/login", middleware.EnsureNotLoggedIn, handles.Login)
+	r.POST("/u/login", middleware.EnsureNotLoggedIn(), handles.Login)
 
 	// create a request to send the above route
 	loginPayload := getRegisterPostPayLoad()
@@ -92,7 +92,7 @@ func TestLoginIncorrectUnauthenticated(t *testing.T) {
 
 func TestLoginIncorrectAuthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.POST("/u/login", middleware.EnsureNotLoggedIn, handles.Login)
+	r.POST("/u/login", middleware.EnsureNotLoggedIn(), handles.Login)
 
 	// create a request to send the above route
 	loginPayload := getRegisterPostPayLoad()
@@ -107,7 +107,7 @@ func TestLoginIncorrectAuthenticated(t *testing.T) {
 
 func TestShowRegisterPageUnauthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.GET("/u/register", middleware.EnsureNotLoggedIn, handles.ShowRegisterPage)
+	r.GET("/u/register", middleware.EnsureNotLoggedIn(), handles.ShowRegisterPage)
 	req, _ := http.NewRequest("GET", "/u/register", nil)
 	testHTTPResponseUnauthenticated(t, r, req, func(w *httptest.ResponseRecorder) bool {
 		// Test whether the http state code is 200
@@ -123,7 +123,7 @@ func TestShowRegisterPageUnauthenticated(t *testing.T) {
 
 func TestShowRegisterPageAuthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.GET("/u/register", middleware.EnsureNotLoggedIn, handles.ShowRegisterPage)
+	r.GET("/u/register", middleware.EnsureNotLoggedIn(), handles.ShowRegisterPage)
 	req, _ := http.NewRequest("GET", "/u/register", nil)
 	testHTTPResponseAuthenticated(t, r, req, func(w *httptest.ResponseRecorder) bool {
 		// Test whether the http state code is 401
@@ -133,7 +133,7 @@ func TestShowRegisterPageAuthenticated(t *testing.T) {
 
 func TestRegisterUnauthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.POST("/u/register", middleware.EnsureNotLoggedIn, handles.Register)
+	r.POST("/u/register", middleware.EnsureNotLoggedIn(), handles.Register)
 
 	// create a request to send the above route
 	registerPayload := getRegisterPostPayLoad()
@@ -154,7 +154,7 @@ func TestRegisterUnauthenticated(t *testing.T) {
 
 func TestRegisterAuthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.POST("/u/register", middleware.EnsureNotLoggedIn, handles.Login)
+	r.POST("/u/register", middleware.EnsureNotLoggedIn(), handles.Login)
 
 	// create a request to send the above route
 	registerPayload := getRegisterPostPayLoad()
@@ -170,7 +170,7 @@ func TestRegisterAuthenticated(t *testing.T) {
 // test the register function with incorrect username & password
 func TestRegisterIncorrectUnauthenticated(t *testing.T) {
 	r := getRouter(true)
-	r.POST("/u/register", middleware.EnsureNotLoggedIn, handles.Register)
+	r.POST("/u/register", middleware.EnsureNotLoggedIn(), handles.Register)
 
 	// create a request to send the above route
 	registerPayload := getLoginPostPayLoad()

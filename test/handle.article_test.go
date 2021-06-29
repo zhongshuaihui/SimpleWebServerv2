@@ -150,7 +150,7 @@ func TestArticleXml(t *testing.T) {
 func TestCreateArticlePageUnauthenticated(t *testing.T) {
 	r := getRouter(true)
 
-	r.GET("/article/create", middleware.EnsureLoggedIn, handles.ShowCreateArticlePage)
+	r.GET("/article/create", middleware.EnsureLoggedIn(), handles.ShowCreateArticlePage)
 
 	// create a request to send above route
 	req, _ := http.NewRequest("GET", "/article/create", nil)
@@ -164,7 +164,7 @@ func TestCreateArticlePageUnauthenticated(t *testing.T) {
 func TestCreateArticlePageAuthenticated(t *testing.T) {
 	r := getRouter(true)
 
-	r.GET("/article/create", middleware.EnsureLoggedIn, handles.ShowCreateArticlePage)
+	r.GET("/article/create", middleware.EnsureLoggedIn(), handles.ShowCreateArticlePage)
 
 	// create a request to send above route
 	req, _ := http.NewRequest("GET", "/article/create", nil)
@@ -184,7 +184,7 @@ func TestCreateArticlePageAuthenticated(t *testing.T) {
 func TestPublishArticleUnauthenticated(t *testing.T) {
 	r := getRouter(true)
 
-	r.POST("/article/create", middleware.EnsureLoggedIn, handles.PublishArticle)
+	r.POST("/article/create", middleware.EnsureLoggedIn(), handles.PublishArticle)
 
 	// create a request to send the above route
 	articlePayload := getArticlePostPayLoad()
@@ -201,7 +201,7 @@ func TestPublishArticleUnauthenticated(t *testing.T) {
 func TestPublishArticleAuthenticated(t *testing.T) {
 	r := getRouter(true)
 
-	r.POST("/article/create", middleware.EnsureLoggedIn, handles.PublishArticle)
+	r.POST("/article/create", middleware.EnsureLoggedIn(), handles.PublishArticle)
 
 	// create a request to send the above route
 	articlePayload := getArticlePostPayLoad()
