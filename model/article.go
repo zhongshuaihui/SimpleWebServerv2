@@ -6,7 +6,7 @@ import (
 	"simplewebserverv2/middleware"
 )
 
-type article struct {
+type Article struct {
 	Id      int    `json:"id"`
 	Title   string `json:"title"`
 	Content string `json:"content"`
@@ -19,9 +19,9 @@ type article struct {
 // }
 
 // v2: the airticle store in database
-var articleList []article
+var articleList []Article
 
-func GetAllArticles() ([]article, error) {
+func GetAllArticles() ([]Article, error) {
 	if len(articleList) == 0 {
 		rows, err := middleware.Db.Query("select * from article")
 		if err != nil {
@@ -30,7 +30,7 @@ func GetAllArticles() ([]article, error) {
 		defer rows.Close()
 
 		for rows.Next() {
-			var a article
+			var a Article
 			rows.Scan(&a.Id, &a.Title, &a.Content)
 			articleList = append(articleList, a)
 		}
@@ -39,7 +39,7 @@ func GetAllArticles() ([]article, error) {
 	return articleList, nil
 }
 
-func FindArticleById(id int) (article_add *article, err error) {
+func FindArticleById(id int) (article_add *Article, err error) {
 	for _, a := range articleList {
 		if a.Id == id {
 			return &a, nil
@@ -67,7 +67,7 @@ func AppendArticle(title string, content string) error {
 
 	Id := int(id)
 
-	a := article{Id: Id, Title: title, Content: content}
+	a := Article{Id: Id, Title: title, Content: content}
 	articleList = append(articleList, a)
 
 	return nil

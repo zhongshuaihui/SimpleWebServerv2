@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-type user struct {
+type User struct {
 	User_name string `json:"user_name"`
 	Password  string `json:"password"`
 }
@@ -19,7 +19,7 @@ type user struct {
 // }
 
 // v2: the user store in database
-var userList []user
+var userList []User
 
 func IsUserValid(username string, password string) bool {
 	if len(userList) == 0 {
@@ -77,7 +77,7 @@ func ReadUserList() (err error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var u user
+		var u User
 		rows.Scan(&u.User_name, &u.Password)
 		userList = append(userList, u)
 	}

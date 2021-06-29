@@ -1,8 +1,6 @@
 package main
 
 import (
-	"database/sql"
-
 	_ "github.com/go-sql-driver/mysql"
 
 	"simplewebserverv2/middleware"
@@ -11,7 +9,6 @@ import (
 )
 
 var router *gin.Engine
-var Db *sql.DB
 
 func main() {
 

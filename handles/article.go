@@ -28,7 +28,7 @@ func ShowIndexPage(c *gin.Context) {
 
 	// use render to handle different request
 	// the payload can carry all the articles
-	middleware.Render(c, gin.H{"payload": articles}, "index.html")
+	middleware.Render(c, gin.H{"title": "Home Page", "payload": articles}, "index.html")
 }
 
 // show article detail page
@@ -52,7 +52,7 @@ func ShowArticleDetail(c *gin.Context) {
 			// )
 
 			// use render to handle different request
-			middleware.Render(c, gin.H{"payload": article}, "article.html")
+			middleware.Render(c, gin.H{"title": article.Title, "payload": article}, "article.html")
 		}
 	}
 
