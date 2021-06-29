@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -53,7 +52,6 @@ func testHTTPResponseAuthenticated(t *testing.T, r *gin.Engine, req *http.Reques
 	// set the token cookie to simulate an authenticated user
 	http.SetCookie(w, &http.Cookie{Name: "token", Value: "123"})
 	req.Header.Add("Cookie", "token=123")
-	fmt.Println(req.Header)
 
 	// create the service and process the above request
 	r.ServeHTTP(w, req)

@@ -55,7 +55,7 @@ func Register(c *gin.Context) {
 		c.SetCookie("token", token, 3600, "", "", false, true)
 		c.Set("is_logged_in", true)
 
-		middleware.Render(c, gin.H{"title": "Successfully register & login"}, "login_successful.html")
+		middleware.Render(c, gin.H{"title": "Successfully register and login"}, "login_successful.html")
 	} else {
 		middleware.Render_bad(c, gin.H{
 			"title":        "Register",
