@@ -5,14 +5,10 @@ import (
 	"net/http/httptest"
 	"os"
 	"simplewebserverv2/middleware"
-	"simplewebserverv2/model"
 	"testing"
 
 	"github.com/gin-gonic/gin"
 )
-
-var tmpUserList []model.User
-var tmpArticleList []model.Article
 
 func TestMain(m *testing.M) {
 	// set gin to test mode
